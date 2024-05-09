@@ -20,17 +20,17 @@ const ChatApp = () => {
             // Nested aiResponse objects
             setMessages(prev => [...prev, data.aiResponse.aiResponse]);
         } else if (Array.isArray(data.aiResponse)) {
-            // Array responses, typically from professor lists
-            setAllProfessors(data.aiResponse);  // Store the complete list of professors
+            // Array responses
+            setAllProfessors(data.aiResponse);  
             setMessages(prev => [...prev, "Please type a department name or type 'All' to see all professors."]);
             setAwaitingDepartmentResponse(true);
         } else {
-            // Handle unexpected data formats
+            // unexpected data formats
             console.error("Unexpected data format:", data.aiResponse);
             setMessages(prev => [...prev, "Received unexpected data format. Please contact the administrator."]);
         }
     } else {
-        // Handle cases where data.aiResponse is missing or malformed
+        // cases where data.aiResponse is missing or malformed
         setMessages(prev => [...prev, "Error: Response from server is empty or malformed."]);
     }
 };
@@ -60,7 +60,7 @@ const sendMessage = async () => {
       setMessages(prev => [...prev, `You: ${userInput}`]);
 
       if (awaitingDepartmentResponse) {
-          fetchProfessorsByFilter(userInput);  // Use local filter function
+          fetchProfessorsByFilter(userInput); 
       } else {
           // Make initial API call
           const response = await fetch(`${API_URL}/api/openai-response`, {
@@ -82,7 +82,7 @@ const sendMessage = async () => {
 
   return (
     <Layout style={{ height: '100vh' }}>
-      <Header style={{ color: 'white', textAlign: 'center' }}>Kent State Chat Interface</Header>
+      <Header style={{ color: 'white', textAlign: 'center' }}>Kent State Chatbot</Header>
       <Content style={{ padding: '20px', overflowY: 'scroll' }}>
         <List
           dataSource={messages}
